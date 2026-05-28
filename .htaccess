@@ -1,0 +1,20 @@
+RewriteEngine On
+ErrorDocument 404 /404
+ErrorDocument 403 /404
+
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://yuccabeplanters.co.in%{REQUEST_URI} [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+RewriteRule ^ %1 [R=301,L]
+
+RewriteRule ^blog/([a-zA-Z0-9-/]+)$ blog-detail.php?url=$1 [QSA,L]
+RewriteRule ^category/([a-zA-Z0-9-/]+)$ category.php?url=$1 [QSA,L]
+RewriteRule ^subcategory/([a-zA-Z0-9-/]+)$ subcategory.php?url=$1 [QSA,L]
+RewriteRule ^products/([a-zA-Z0-9-/]+)$ product-detail.php?url=$1 [QSA,L]
+RewriteRule ^project/([a-zA-Z0-9-/]+)$ project-detail.php?url=$1 [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule (.*) $1\.php [L]
