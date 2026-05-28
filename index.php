@@ -1,10 +1,12 @@
 <?php
 
-// Report all PHP errors
-error_reporting(E_ALL);
-
-// Display errors on the screen
-ini_set('display_errors', '1');
+if ($_SERVER['SERVER_NAME'] === 'localhost') {
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
+} else {
+    error_reporting(E_ALL);
+    ini_set('display_errors', '0');
+}
 
 require('inc/function.php');
 
@@ -19,9 +21,7 @@ $tblHomeExtra = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `tbl_home_
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= $profile['pro_title'] ?></title>
     <meta name="description" content="<?= $profile['pro_detail'] ?>" />
-    <meta name="keywords" content="<?= $profile['pro_keyword'] ?>" /> 
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
+    <meta name="keywords" content="<?= $profile['pro_keyword'] ?>" />
     <?php
     $canonical_url = rtrim(SITE_URL, '/') . '/';
     $meta_robots = 'index, follow';
@@ -52,7 +52,7 @@ $tblHomeExtra = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `tbl_home_
     
     <script type="application/ld+json">
      {
-  "@context": "http://schema.org",
+  "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Yuccabe Planters",
   "description": "<?= $profile['pro_detail'] ?>",
@@ -113,14 +113,12 @@ $tblHomeExtra = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `tbl_home_
             <div class="scroll-container" style="width: 100vw; overflow: hidden;">
 
             <?php
-$banner = mysqli_query($conn, "SELECT * FROM `tbl_banner` WHERE `bnr_status` = '1'");
+$banner = mysqli_query($conn, "SELECT * FROM `tbl_banner` WHERE `bnr_status` = '1' LIMIT 1");
 if (mysqli_num_rows($banner) > 0) {
+    $rowBanner = mysqli_fetch_assoc($banner);
             ?>
                 <!-- Hero Banner -->
                 <section class="hb-section" id="hero-banner">
-                    <?php
-        while($rowBanner = mysqli_fetch_assoc($banner)){
-                    ?>
                     <div class="hb-bg">
                         <img src="<?= SITE_URL ?>uploads/banner/<?= $rowBanner['bnr_image'] ?>" alt="Yuccabe premium planters lifestyle"
                             class="hb-bg-img" loading="eager" />
@@ -191,7 +189,6 @@ if (mysqli_num_rows($banner) > 0) {
                             </div>
                         </div>
                     </div>
-        <?php } ?>
                 </section>
 <?php } ?>                
 
@@ -278,32 +275,32 @@ if(mysqli_num_rows($productList) > 0) {
   <div class="why-grid">
  
     <div class="why-card">
-      <img src="./img/Home-Silder/1.png" alt="" />
+      <img src="./img/Home-Silder/1.png" alt="Handcrafted planter detail" />
       <p>Each planter is handcrafted with care, detail, and refined technique.</p>
     </div>
  
     <div class="why-card">
-      <img src="./img/Home-Silder/2.png" alt="" />
+      <img src="./img/Home-Silder/2.png" alt="Custom planters for interior space" />
       <p>Tailored planter solutions perfectly aligned to your space and vision.</p>
     </div>
  
     <div class="why-card">
-      <img src="./img/Home-Silder/3.png" alt="" />
+      <img src="./img/Home-Silder/3.png" alt="Planters used in premium commercial design" />
       <p>Preferred by top design professionals across luxury and commercial spaces.</p>
     </div>
  
     <div class="why-card">
-      <img src="./img/Home-Silder/4.png" alt="" />
+      <img src="./img/Home-Silder/4.png" alt="Balanced planter design composition" />
       <p>Designs that blend beauty, balance, and everyday practicality with ease.</p>
     </div>
  
     <div class="why-card">
-      <img src="./img/Home-Silder/5.png" alt="" />
+      <img src="./img/Home-Silder/5.png" alt="Durable indoor and outdoor planter" />
       <p>Durable and elegant—perfect for both indoor and outdoor use.</p>
     </div>
  
     <div class="why-card">
-      <img src="./img/Home-Silder/6.png" alt="" />
+      <img src="./img/Home-Silder/6.png" alt="Large scale planter installation project" />
       <p>Successfully styled spaces across India in varied scale and settings.</p>
     </div>
  
@@ -362,8 +359,8 @@ if(mysqli_num_rows($productList) > 0) {
                                     </div>
    
                                     <div class="cu-field">
-                                        <label for="hb-spaceType" class="hb-label">Space / Project Type</label>
-                                        <select id="hb-spaceType"  name="project" class="hb-input hb-select">
+                                        <label for="cu-spaceType" class="hb-label">Space / Project Type</label>
+                                        <select id="cu-spaceType"  name="project" class="hb-input hb-select">
                                             <option value="">Select your space type</option>
                                             <option value="Residential">Residential / Home</option>
                                             <option value="Commercial">Commercial Office</option>
