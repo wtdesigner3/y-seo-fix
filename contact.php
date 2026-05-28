@@ -192,7 +192,7 @@ $breadcrumb = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tbl_breadcru
                     formPayload.recaptcha = token;
 
                     try {
-                        const response = await fetch('https://www.yuccabeplanters.co.in/cms_forY/api/contact', {
+                        const response = await fetch('<?= SITE_URL ?>cms_forY/api/contact', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                             body: JSON.stringify(formPayload)

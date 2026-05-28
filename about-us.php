@@ -42,7 +42,7 @@ $breadcrumb = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM tbl_breadcru
     <!-- Main Content -->
     <main>
       <div class="ab-inner-hero-area ab-inner-hero-bg position-relative"
-        style="background-image: url('https://www.yuccabeplanters.co.in/img/fleur-trio-lifestyle2.jpg')">
+        style="background-image: url('<?= SITE_URL ?>img/fleur-trio-lifestyle2.jpg')">
         <div class="container container-1480 position-relative" style="z-index: 2;">
           <div class="row">
             <div class="col-xl-8">
