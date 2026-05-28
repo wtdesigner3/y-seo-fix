@@ -228,7 +228,7 @@ if(mysqli_num_rows($productList) > 0) {
                                     <div class="ypc-card-info">
                                         <span class="ypc-card-category"><?= $product['Category_name'] ?></span>
                                         <h3 class="ypc-card-name"><?= $product['name'] ?></h3>
-                                        <a href="./explore.php" class="ypc-card-cta">
+                                        <a href="<?= SITE_URL ?>explore" class="ypc-card-cta">
                                             Explore
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
