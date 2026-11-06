@@ -1,3 +1,4 @@
+
 name: Deploy to cPanel via FTP
 
 on:
@@ -15,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Deploy files to cPanel over FTP
+      - name: Upload fresh website files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -25,3 +26,6 @@ jobs:
           port: 21
           security: loose
           server-dir: /public_html/
+          dangerous-clean-slate: false
+          state-name: .ftp-deploy-sync-state.json
+          dry-run: false
