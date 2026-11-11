@@ -1,20 +1,30 @@
 RewriteEngine On
+RewriteBase /
+
 ErrorDocument 404 /404
 ErrorDocument 403 /404
 
+# Force HTTPS and non-www
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^ https://yuccabeplanters.co.in%{REQUEST_URI} [R=301,L]
 
+# Exclude admin and mail directories, and POST requests, from removing .php extension
+RewriteCond %{REQUEST_URI} !^/admin(/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/mail(/|$) [NC]
+RewriteCond %{REQUEST_METHOD} !POST
 RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
-RewriteRule ^ %1 [R=301,L]
+RewriteRule ^ /%1 [R=301,L]
 
+# Front-End Specific Rewrite Rules
 RewriteRule ^blog/([a-zA-Z0-9-/]+)$ blog-detail.php?url=$1 [QSA,L]
 RewriteRule ^category/([a-zA-Z0-9-/]+)$ category.php?url=$1 [QSA,L]
 RewriteRule ^subcategory/([a-zA-Z0-9-/]+)$ subcategory.php?url=$1 [QSA,L]
 RewriteRule ^products/([a-zA-Z0-9-/]+)$ product-detail.php?url=$1 [QSA,L]
 RewriteRule ^project/([a-zA-Z0-9-/]+)$ project-detail.php?url=$1 [QSA,L]
 
+# Resolve clean URLs to .php files internally
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteCond %{REQUEST_URI} !/$
 RewriteRule (.*) $1\.php [L]
