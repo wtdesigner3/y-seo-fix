@@ -1,8 +1,7 @@
 <?php
 $directoryURI = $_SERVER['REQUEST_URI'];
 $path = parse_url($directoryURI, PHP_URL_PATH);
-$components = explode('/', $path);
-$first_part = $components[3];
+$first_part = basename($path);
 
 
 $sqqll = "SELECT `pro_id`, `pro_logo`,`pro_dark_logo`, `pro_favicon` , `pro_title`, `pro_keyword`, `pro_detail` FROM `tbl_profile`";

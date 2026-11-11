@@ -1,9 +1,10 @@
 
 <?php
 @session_start();
-if(@$_SESSION['admin_ses'] == 'hvrs@#p9w84r'.session_id())
+if(isset($_SESSION['admin_ses']) && $_SESSION['admin_ses'] == 'hvrs@#p9w84r'.session_id())
 {
     header("location:index.php");
+    exit;
 }
 require('../inc/function.php');
 if(isset($_POST['login']))
@@ -20,6 +21,7 @@ if(isset($_POST['login']))
     $_SESSION['admin_email']=$email;
 	$_SESSION['success']="You Are Successfully login";
     header('location:index.php');
+    exit;
   }
   else
   {
@@ -71,7 +73,7 @@ $rowww = $resulltt->fetch_assoc();
 			 <!-- begin login-content -->
 			  <div class="login-content" style="background-color: white;">
                    
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="margin-bottom-0">
+				<form action="" method="post" class="margin-bottom-0">
 					<div class="form-group m-b-20">
 						<input type="text" class="form-control form-control-lg inverse-mode" name="username" placeholder="Username" required />
 					</div>
